@@ -1,15 +1,6 @@
 #pragma once
 #include <iostream>
 using namespace std;
-class Map
-{
-private:
-	int width, height, fruitX, fruitY;
-public:
-	Map();
-	void generateFruit();
-	void draw();
-};
 
 class Snake
 {
@@ -17,6 +8,18 @@ private:
 	int headX, headY;
 public:
 	Snake();
+	int getPosX();
+	int getPosY();
+};
+
+class Map
+{
+private:
+	int width, height, fruitX, fruitY;
+public:
+	Map();
+	void generateFruit();
+	void draw(Snake* sPtr);
 };
 
 class Player

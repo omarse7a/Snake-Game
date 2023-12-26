@@ -3,6 +3,6 @@
 
 int main()
 {
-    Map m;
-    m.draw();
+    GameManager game;
+    game.run();
 }
