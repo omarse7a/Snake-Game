@@ -2,6 +2,7 @@
 #include <iostream>
 #include <conio.h>
 #include <Windows.h>
+#include <deque>
 #define HEIGHT 25
 #define WIDTH 40
 using namespace std;
@@ -22,6 +23,7 @@ class Map
 {
 private:
 	char** map;
+	pair<int, int> fruit;
 public:
 	Map();
 	~Map();
@@ -29,20 +31,25 @@ public:
 	void drawMap();
 	void setCell(int x, int y, char value);
 	char getCell(int x, int y);
+	void generateFruit();
+	pair<int, int> getFoodPos();
 };
+
 
 class Snake //pos->head, len, direction, velocity
 {
 private:
 	pair<int, int> head;
+	deque<pair<int, int>> body;
 	Direction dir;
 	bool gameOver;
 public:
 	Snake();
 	pair<int,int> getPosition();
-	void setPosition(Map* mPtr);
+	void setOnMap(Map* mPtr);
 	void getDirection();
-	void move(Player* pPtr);
+	void move(Map* mPtr);
+	void grow();
 	bool game_is_over();
 	
 };

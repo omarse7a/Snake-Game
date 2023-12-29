@@ -6,6 +6,7 @@ Map::Map() {
 	{
 		map[i] = new char[WIDTH+2];
 	}
+	generateFruit();
 }
 Map::~Map() {
 	for (int i = 0; i < HEIGHT+2; i++)
@@ -16,8 +17,9 @@ Map::~Map() {
 void Map::setMap() {
 	for (int i = 0; i < HEIGHT+2; i++) {
 		for (int j = 0; j < WIDTH+2; j++) {
-			if (i == 0 || i == HEIGHT+1) map[i][j] = '#';
-			else if (j == 0 || j == WIDTH+1) map[i][j] = '#';
+			if (i == 0 || i == HEIGHT + 1) map[i][j] = '#';
+			else if (j == 0 || j == WIDTH + 1) map[i][j] = '#';
+			else if (i == fruit.first && j == fruit.second) map[i][j] = '$';
 			else map[i][j] = ' ';
 		}
 	}
@@ -41,6 +43,16 @@ void Map::setCell(int x, int y, char value)
 char Map::getCell(int x, int y)
 {
 	return map[x][y];
+}
+
+void Map::generateFruit() {
+	fruit.first = rand() % HEIGHT;
+	fruit.second = rand() % WIDTH;
+}
+
+pair<int, int> Map::getFoodPos()
+{
+	return fruit;
 }
 
 

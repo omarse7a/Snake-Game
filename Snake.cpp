@@ -6,8 +6,11 @@ pair<int, int> Snake::getPosition() {
 	return head;
 }
 
-void Snake::setPosition(Map* mPtr) {
+void Snake::setOnMap(Map* mPtr) {
 	mPtr->setCell(head.first, head.second, 'O');
+	for (int i = 0; i < body.size(); i++) {
+		mPtr->setCell(body[i].first, body[i].second, 'o');
+	}
 }
 
 void Snake::getDirection() {
@@ -33,7 +36,8 @@ void Snake::getDirection() {
 	}
 }
 
-void Snake::move(/*Map* mPtr,*/ Player* pPtr) {
+void Snake::move(Map* mPtr) {
+	pair<int, int> tempPos = head;
 	switch (dir)
 	{
 	case UP:
@@ -51,6 +55,23 @@ void Snake::move(/*Map* mPtr,*/ Player* pPtr) {
 	default:
 		break;
 	}
+	if (head.first == HEIGHT+1 || head.first == 0
+		|| head.second == WIDTH+1 ||head.second == 0) {
+		gameOver = true;
+	}
+	if (head.first == mPtr->getFoodPos().first && head.second == mPtr->getFoodPos().second) {
+		mPtr->generateFruit();
+	}
+	for (int i = 0; i < body.size(); i++) {
+		body.push_front(tempPos);
+		body.pop_back();
+	}
+	Sleep(100);
+	
+}
+
+void Snake::grow()
+{
 	/*if (headX == mPtr->getFruitX() || headY == mPtr->getFruitY()) {
 		pPtr->incrementScore();
 		mPtr->generateFruit();
