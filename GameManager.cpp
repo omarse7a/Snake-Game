@@ -11,8 +11,13 @@ GameManager::GameManager()
 
 void GameManager::run()
 {
-	//while (!playerPtr->game_is_over())
-	system("cls");
-	mapPtr->draw(snakePtr);
-	//Sleep(50);
+	mapPtr->setMap();
+	while (!snakePtr->game_is_over()) {
+		//Sleep(50);
+		//system("cls");
+		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), { 0, 0 }); //instead of clear screen and the sleep
+		snakePtr->setPosition(mapPtr);
+		mapPtr->drawMap();
+		cout << "\nScore : " << playerPtr->getScore() << "\n";
+	}
 }
