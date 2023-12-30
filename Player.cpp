@@ -5,7 +5,7 @@ Player::Player() {
 }
 
 void Player::incrementScore() {
-	score++;
+	score += 10;
 }
 
 int Player::getScore() {

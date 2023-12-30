@@ -1,6 +1,6 @@
 #include "Components.h"
 
-Snake::Snake() : head({HEIGHT / 2, WIDTH / 2 }), dir(STOP), gameOver(false) {}
+Snake::Snake() : head({ HEIGHT / 2, WIDTH / 2 }), dir(STOP), gameOver(false) {}
 
 pair<int, int> Snake::getPosition() {
 	return head;
@@ -18,16 +18,20 @@ void Snake::getDirection() {
 		switch (_getch())
 		{
 		case 'w':
-			dir = UP;
+			if(dir != DOWN)
+				dir = UP;
 			break;
 		case 's':
-			dir = DOWN;
+			if(dir != UP)
+				dir = DOWN;
 			break;
 		case 'd':
-			dir = RIGHT;
+			if (dir != LEFT)
+				dir = RIGHT;
 			break;
 		case 'a':
-			dir = LEFT;
+			if (dir != RIGHT)
+				dir = LEFT;
 			break;
 		case 'x':
 			gameOver = true;
@@ -36,47 +40,64 @@ void Snake::getDirection() {
 	}
 }
 
-void Snake::move(Map* mPtr) {
-	pair<int, int> tempPos = head;
-	switch (dir)
+void Snake::move(Map* mPtr, Player* pPtr) {
+	if(dir != STOP)
 	{
+		pair<int, int> tempPos = head;
+		switch (dir)
+		{
+		case UP:
+			head.first--;
+			break;
+		case DOWN:
+			head.first++;
+			break;
+		case RIGHT:
+			head.second++;
+			break;
+		case LEFT:
+			head.second--;
+			break;
+		default:
+			break;
+		}
+		if (head.first == HEIGHT + 1 || head.first == 0
+			|| head.second == WIDTH + 1 || head.second == 0) {
+			gameOver = true;
+		}
+		if (head.first == mPtr->getFoodPos().first && head.second == mPtr->getFoodPos().second) {
+			mPtr->generateFruit();
+			pPtr->incrementScore();
+			grow();
+		}
+		for (int i = 0; i < body.size(); i++) {
+			body.push_front(tempPos);
+			body.pop_back();
+		}
+		Sleep(100);
+	}
+}
+
+void Snake::grow() {
+	pair<int, int> tail = body.empty()? head : body.back();
+	switch (dir) {
 	case UP:
-		head.first--;
+		body.push_back({ tail.first - 1, tail.second });
 		break;
 	case DOWN:
-		head.first++;
+		body.push_back({ tail.first + 1, tail.second });
 		break;
 	case RIGHT:
-		head.second++;
+		body.push_back({ tail.first, tail.second + 1 });
 		break;
 	case LEFT:
-		head.second--;
+		body.push_back({ tail.first, tail.second - 1 });
 		break;
 	default:
 		break;
 	}
-	if (head.first == HEIGHT+1 || head.first == 0
-		|| head.second == WIDTH+1 ||head.second == 0) {
-		gameOver = true;
-	}
-	if (head.first == mPtr->getFoodPos().first && head.second == mPtr->getFoodPos().second) {
-		mPtr->generateFruit();
-	}
-	for (int i = 0; i < body.size(); i++) {
-		body.push_front(tempPos);
-		body.pop_back();
-	}
-	Sleep(100);
-	
 }
 
-void Snake::grow()
-{
-	/*if (headX == mPtr->getFruitX() || headY == mPtr->getFruitY()) {
-		pPtr->incrementScore();
-		mPtr->generateFruit();
-	}*/
-}
 
 bool Snake::game_is_over()
 {

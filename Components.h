@@ -1,3 +1,4 @@
+
 #pragma once
 #include <iostream>
 #include <conio.h>
@@ -42,13 +43,14 @@ private:
 	pair<int, int> head;
 	deque<pair<int, int>> body;
 	Direction dir;
+	//velocity->sleep
 	bool gameOver;
 public:
 	Snake();
 	pair<int,int> getPosition();
 	void setOnMap(Map* mPtr);
 	void getDirection();
-	void move(Map* mPtr);
+	void move(Map* mPtr, Player* pPtr);
 	void grow();
 	bool game_is_over();
 	
