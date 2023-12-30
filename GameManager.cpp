@@ -13,13 +13,17 @@ void GameManager::run()
 {
 	
 	while (!snakePtr->game_is_over()) {
-		//system("cls");
-		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), { 0, 0 }); //instead of clear screen and the sleep
+		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), { 0, 0 }); //instead of clear screen
+		
 		mapPtr->setMap();
+		snakePtr->setOnMap(mapPtr);
 		snakePtr->getDirection();
 		snakePtr->move(mapPtr, playerPtr);
-		snakePtr->setOnMap(mapPtr);
 		mapPtr->drawMap();
 		cout << "\nScore : " << playerPtr->getScore() << "\n";
+		
 	}
+	system("cls");
+	cout << "GAME OVER!\n";
+	cout << "\nYOUR SCORE IS : " << playerPtr->getScore() << "\n\n";
 }

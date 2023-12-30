@@ -4,8 +4,8 @@
 #include <conio.h>
 #include <Windows.h>
 #include <deque>
-#define HEIGHT 25
-#define WIDTH 40
+#define HEIGHT 22
+#define WIDTH 35
 using namespace std;
 
 enum Direction { STOP = 0, UP, DOWN, RIGHT, LEFT };
@@ -47,7 +47,6 @@ private:
 	bool gameOver;
 public:
 	Snake();
-	pair<int,int> getPosition();
 	void setOnMap(Map* mPtr);
 	void getDirection();
 	void move(Map* mPtr, Player* pPtr);

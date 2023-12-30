@@ -2,15 +2,11 @@
 
 Snake::Snake() : head({ HEIGHT / 2, WIDTH / 2 }), dir(STOP), gameOver(false) {}
 
-pair<int, int> Snake::getPosition() {
-	return head;
-}
-
 void Snake::setOnMap(Map* mPtr) {
-	mPtr->setCell(head.first, head.second, 'O');
 	for (int i = 0; i < body.size(); i++) {
 		mPtr->setCell(body[i].first, body[i].second, 'o');
 	}
+	mPtr->setCell(head.first, head.second, 'O');
 }
 
 void Snake::getDirection() {
@@ -43,7 +39,10 @@ void Snake::getDirection() {
 void Snake::move(Map* mPtr, Player* pPtr) {
 	if(dir != STOP)
 	{
-		pair<int, int> tempPos = head;
+		if(!body.empty()) {
+			body.push_front(head);
+			body.pop_back();
+		}
 		switch (dir)
 		{
 		case UP:
@@ -65,16 +64,16 @@ void Snake::move(Map* mPtr, Player* pPtr) {
 			|| head.second == WIDTH + 1 || head.second == 0) {
 			gameOver = true;
 		}
+		for (int i = 0; i < body.size(); i++) {
+			if (head.first == body[i].first && head.second == body[i].second) {
+				gameOver = true;
+			}
+		}
 		if (head.first == mPtr->getFoodPos().first && head.second == mPtr->getFoodPos().second) {
-			mPtr->generateFruit();
 			pPtr->incrementScore();
+			mPtr->generateFruit();
 			grow();
 		}
-		for (int i = 0; i < body.size(); i++) {
-			body.push_front(tempPos);
-			body.pop_back();
-		}
-		Sleep(100);
 	}
 }
 
