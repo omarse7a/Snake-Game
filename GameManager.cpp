@@ -9,7 +9,14 @@ GameManager::GameManager()
 	playerPtr = new Player;
 }
 
-void GameManager::run()
+GameManager::~GameManager()
+{
+	delete mapPtr;
+	delete snakePtr;
+	delete playerPtr;
+}
+
+void GameManager::run() const
 {
 	
 	while (!snakePtr->game_is_over()) {
@@ -23,15 +30,16 @@ void GameManager::run()
 			Sleep(60);
 		else
 			Sleep(30);
+
 		mapPtr->setMap();
 		snakePtr->setOnMap(mapPtr);
 		snakePtr->getDirection();
 		snakePtr->move(mapPtr, playerPtr);
 		mapPtr->drawMap();
-		cout << "\nScore : " << playerPtr->getScore() << "\n";
-		
+		cout << "\nName : " << playerPtr->getName() << "\n";
+		cout << "Score : " << playerPtr->getScore() << "\n";
 	}
 	system("cls");
-	cout << "GAME OVER!\n";
+	cout << "\nGAME OVER!\n";
 	cout << "\nYOUR SCORE IS : " << playerPtr->getScore() << "\n\n";
 }

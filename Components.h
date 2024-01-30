@@ -1,25 +1,34 @@
-
 #pragma once
 #include <iostream>
 #include <conio.h>
 #include <Windows.h>
 #include <deque>
-#define HEIGHT 22
+#include <fstream>
+//Map dimensions
+#define HEIGHT 22	
 #define WIDTH 35
 using namespace std;
 
 enum Direction { STOP = 0, UP, DOWN, RIGHT, LEFT };
 
-class Player
+/*This class represents the player information like name and score.
+It manipulates the score*/
+class Player //add name
 {
 private:
 	int score;
+	string name;
 public:
 	Player();
 	void incrementScore();
-	int getScore();
+	int getScore() const;
+	string getName() const;
+	void getTopTen() const;
+	void saveResults();
 };
 
+/*This class represents the map that the snake moves in and it's responsible
+for generating the fruit*/
 class Map
 {
 private:
@@ -29,21 +38,21 @@ public:
 	Map();
 	~Map();
 	void setMap();
-	void drawMap();
-	void setCell(int x, int y, char value);
-	char getCell(int x, int y);
+	void drawMap() const;
+	void setCell(const int& x, const int& y, const char& value);
+	char getCell(const int& x, const int& y) const;
 	void generateFruit();
-	pair<int, int> getFoodPos();
+	pair<int, int> getFoodPos() const;
 };
 
-
-class Snake //pos->head, len, direction, velocity
+/*This class represents the snake itself. it handles the logic of snake's movement,
+growth(when eating a fruit) and collision detection*/
+class Snake //pos->head, len, direction
 {
 private:
 	pair<int, int> head;
 	deque<pair<int, int>> body;
 	Direction dir;
-	//velocity->sleep
 	bool gameOver;
 public:
 	Snake();
@@ -51,10 +60,11 @@ public:
 	void getDirection();
 	void move(Map* mPtr, Player* pPtr);
 	void grow();
-	bool game_is_over();
+	bool game_is_over() const;
 	
 };
 
+/*This class combines all game parts together and manages the difficulty according to score*/
 class GameManager
 {
 private:
@@ -63,6 +73,7 @@ private:
 	Player* playerPtr;
 public:
 	GameManager();
-	void run();
+	~GameManager();
+	void run() const;
 };
 
