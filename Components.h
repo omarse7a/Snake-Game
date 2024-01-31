@@ -1,8 +1,10 @@
 #pragma once
 #include <iostream>
+#include <string>
+#include <algorithm>
 #include <conio.h>
 #include <Windows.h>
-#include <deque>
+#include <queue>
 #include <fstream>
 //Map dimensions
 #define HEIGHT 22	
@@ -18,12 +20,13 @@ class Player //add name
 private:
 	int score;
 	string name;
+	vector<pair<int, string>> rank;
 public:
 	Player();
 	void incrementScore();
 	int getScore() const;
 	string getName() const;
-	void getTopTen() const;
+	void getTopTen();
 	void saveResults();
 };
 

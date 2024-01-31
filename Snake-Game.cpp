@@ -24,8 +24,6 @@ int main() {
 
 //todo
 /*
-    - document this project
-    - add ranking to be saved in a text file
     - add arrows movement
     - modify the readME
 */
