@@ -15,15 +15,10 @@ void ShowConsoleCursor(bool showFlag)
 }
 
 int main() {
+    srand(time(NULL)); //changing random seed
     ShowConsoleCursor(false); //to hide the blinking curser
-    
+ 
     GameManager game;
     game.run();
     system("PAUSE>NULL");
 }
-
-//todo
-/*
-    - add arrows movement
-    - modify the readME
-*/

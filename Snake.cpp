@@ -17,22 +17,30 @@ void Snake::getDirection() {
 		switch (_getch()) //determines which key is clicked
 		{
 		case 'w':
+		case 'W':
+		case 72:	//Up arrow
 			if(dir != DOWN)
 				dir = UP;
 			break;
 		case 's':
+		case 'S':
+		case 80:	//Down arrow
 			if(dir != UP)
 				dir = DOWN;
 			break;
 		case 'd':
+		case 'D':
+		case 77:	//Left arrow
 			if (dir != LEFT)
 				dir = RIGHT;
 			break;
 		case 'a':
+		case 'A':
+		case 75:	//Right arrow
 			if (dir != RIGHT)
 				dir = LEFT;
 			break;
-		case 'x':	//pressing "x" ends the game immediately
+		case 27:	//ESC BUTTON ends the game immediately
 			gameOver = true;
 			break;
 		}
@@ -79,10 +87,16 @@ void Snake::move(Map* mPtr, Player* pPtr) {
 			}
 		}
 		//eating the fruit
-		if (head.first == mPtr->getFoodPos().first && head.second == mPtr->getFoodPos().second) {
+		int fruitX = mPtr->getFoodPos().first, 
+			fruitY = mPtr->getFoodPos().second;
+		if (head.first == fruitX && head.second == fruitY) {
 			pPtr->incrementScore();
 			grow();
-			mPtr->generateFruit();	//generating a new fruit
+			do {
+				mPtr->generateFruit();	//generating a new fruit
+				fruitX = mPtr->getFoodPos().first;
+				fruitY = mPtr->getFoodPos().second;
+			} while (mPtr->getCell(fruitX, fruitY) != ' '); //checking whether the cell is empty first
 		}
 	}
 }
