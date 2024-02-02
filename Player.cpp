@@ -44,7 +44,7 @@ string Player::getName() const
 void Player::getTopTen()
 {
 	if(score > 0) rank.push_back({ score, name }); //pushing the current score to the vector
-	cout << "Top 10 Players: \n";
+	cout << "Highest Scoring Players: \n";
 	sort(rank.begin(), rank.end());
 	int i = 1;
 	/*prints the content from the last item to the 10th from the back or less 

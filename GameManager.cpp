@@ -39,6 +39,7 @@ void GameManager::run() const
 		snakePtr->getDirection();	//getting snake's direction
 		snakePtr->move(mapPtr, playerPtr); //snake's movement
 
+		cout << "\nUse arrows or wasd to move..\n";
 		cout << "\nName : " << playerPtr->getName() << "\n";
 		cout << "Score : " << playerPtr->getScore() << "\n";
 	}

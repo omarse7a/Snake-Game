@@ -1,3 +1,4 @@
+340 omar
 200 omar
 130 omar
 100 alex
@@ -6,4 +7,4 @@
 30 joe
 30 ahmed
 20 omar
-20 dfg
+20 ahmed

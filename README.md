@@ -3,7 +3,8 @@ A remake of the famous snake game.
 
 ## Requirements
 G++ 8.0 or above
-Visual Studio 2017 15.8 (MSVC 19.15)
+
+Visual Studio 2017 15.8 (MSVC 19.15) or newer
 
 ## Check it out
 1. Download the repo
